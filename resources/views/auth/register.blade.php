@@ -1,52 +1,137 @@
-<x-guest-layout>
-    <form method="POST" action="{{ route('register') }}">
-        @csrf
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register | Vendor Platform</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <style>
+        /* Background with gradient animation */
+        body {
+            background: linear-gradient(-45deg, #3a1c71, #d76d77, #ffaf7b);
+            background-size: 400% 400%;
+            animation: gradientBG 10s ease infinite;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
 
-        <!-- Name -->
-        <div>
-            <x-input-label for="name" :value="__('Name')" />
-            <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus autocomplete="name" />
-            <x-input-error :messages="$errors->get('name')" class="mt-2" />
-        </div>
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
 
-        <!-- Email Address -->
-        <div class="mt-4">
-            <x-input-label for="email" :value="__('Email')" />
-            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autocomplete="username" />
-            <x-input-error :messages="$errors->get('email')" class="mt-2" />
-        </div>
+        /* Glassmorphism Card */
+        .register-card {
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(12px);
+            padding: 35px;
+            border-radius: 15px;
+            box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            max-width: 450px;
+            color: white;
+            text-align: center;
+        }
 
-        <!-- Password -->
-        <div class="mt-4">
-            <x-input-label for="password" :value="__('Password')" />
+        .register-card h3 {
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
 
-            <x-text-input id="password" class="block mt-1 w-full"
-                            type="password"
-                            name="password"
-                            required autocomplete="new-password" />
+        /* Input Fields */
+        .form-control {
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.3);
+            border: none;
+            color: white;
+        }
+        .form-control::placeholder {
+            color: rgba(255, 255, 255, 0.8);
+        }
 
-            <x-input-error :messages="$errors->get('password')" class="mt-2" />
-        </div>
+        /* Custom Register Button */
+        .register-btn {
+            width: 100%;
+            font-size: 1.1rem;
+            font-weight: bold;
+            padding: 12px;
+            border-radius: 10px;
+            border: none;
+            background: linear-gradient(90deg, #ff7eb3, #ff758c);
+            color: white;
+            transition: 0.3s;
+        }
 
-        <!-- Confirm Password -->
-        <div class="mt-4">
-            <x-input-label for="password_confirmation" :value="__('Confirm Password')" />
+        .register-btn:hover {
+            background: linear-gradient(90deg, #ff758c, #ff7eb3);
+            transform: translateY(-2px);
+        }
 
-            <x-text-input id="password_confirmation" class="block mt-1 w-full"
-                            type="password"
-                            name="password_confirmation" required autocomplete="new-password" />
+        /* Already Registered Link */
+        .link {
+            font-size: 0.9rem;
+            color: white;
+            text-decoration: none;
+            transition: 0.3s;
+        }
 
-            <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
-        </div>
+        .link:hover {
+            text-decoration: underline;
+            color: #ffebcd;
+        }
 
-        <div class="flex items-center justify-end mt-4">
-            <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('login') }}">
-                {{ __('Already registered?') }}
-            </a>
+    </style>
+</head>
+<body>
 
-            <x-primary-button class="ms-4">
-                {{ __('Register') }}
-            </x-primary-button>
-        </div>
-    </form>
-</x-guest-layout>
+    <div class="register-card">
+        <h3 class="mb-4"><i class="fas fa-user-plus"></i> Create an Account</h3>
+
+        <form method="POST" action="{{ route('register') }}">
+            @csrf
+
+            <!-- Name -->
+            <div class="mb-3">
+                <label for="name" class="form-label fw-bold"><i class="fas fa-user"></i> Name</label>
+                <input id="name" class="form-control" type="text" name="name" :value="old('name')" required autofocus autocomplete="name" placeholder="Enter your name">
+                <x-input-error :messages="$errors->get('name')" class="text-danger mt-1" />
+            </div>
+
+            <!-- Email Address -->
+            <div class="mb-3">
+                <label for="email" class="form-label fw-bold"><i class="fas fa-envelope"></i> Email</label>
+                <input id="email" class="form-control" type="email" name="email" :value="old('email')" required autocomplete="username" placeholder="Enter your email">
+                <x-input-error :messages="$errors->get('email')" class="text-danger mt-1" />
+            </div>
+
+            <!-- Password -->
+            <div class="mb-3">
+                <label for="password" class="form-label fw-bold"><i class="fas fa-lock"></i> Password</label>
+                <input id="password" class="form-control" type="password" name="password" required autocomplete="new-password" placeholder="Create a password">
+                <x-input-error :messages="$errors->get('password')" class="text-danger mt-1" />
+            </div>
+
+            <!-- Confirm Password -->
+            <div class="mb-3">
+                <label for="password_confirmation" class="form-label fw-bold"><i class="fas fa-lock"></i> Confirm Password</label>
+                <input id="password_confirmation" class="form-control" type="password" name="password_confirmation" required autocomplete="new-password" placeholder="Confirm your password">
+                <x-input-error :messages="$errors->get('password_confirmation')" class="text-danger mt-1" />
+            </div>
+
+            <!-- Register Button -->
+            <button type="submit" class="register-btn"><i class="fas fa-user-check"></i> Register</button>
+
+            <!-- Already Registered? -->
+            <div class="mt-3">
+                <a class="link" href="{{ route('login') }}">Already have an account? Login</a>
+            </div>
+        </form>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

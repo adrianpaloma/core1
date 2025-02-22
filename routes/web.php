@@ -29,6 +29,9 @@ require __DIR__.'/auth.php';
 
 //View Controller
 
+Route::get("VehicleReservation", function () {
+    return view("Orders.VehicleReservation"); 
+})->name('VehicleReservation');
 Route::get("ManageReturns", function () {
     return view("Orders.ManageReturns"); 
 })->name('ManageReturns');
@@ -53,9 +56,9 @@ Route::get("TransactionHistory", function () {
 Route::get("Refunds", function () {
     return view("PaymentProcessing.Refunds"); 
 })->name('Refunds');
-Route::get("PaymentSettings", function () {
-    return view("PaymentProcessing.PaymentSettings"); 
-})->name('PaymentSettings');
+Route::get("PayoutRequest", function () {
+    return view("PaymentProcessing.PayoutRequest"); 
+})->name('PayoutRequest');
 Route::get("SalesReport", function () {
     return view("ReportAnalytics.SalesReport"); 
 })->name('SalesReport');
@@ -69,7 +72,7 @@ Route::get('/subscription_plan', [SubscriptionController::class, 'subscription_p
 Route::post('/subscribe', [SubscriptionController::class, 'subscribe'])->name('subscribe');
 
 //Product Controller
-Route::get("ProductList", [ProductController::class, 'index'])->name('ProductList');
+Route::get("/ProductList", [ProductController::class, 'index'])->name('ProductList');
 Route::post('/product_store', [ProductController::class, 'store'])->name('product_store');
 
 //Order Controller

@@ -14,7 +14,7 @@
                     
                     <!-- Dashboard Section -->
                     <li class="nav-item">
-                        <a class="nav-link" href="">
+                        <a class="nav-link" href={{route('dashboard')}}>
                             <i class="fa fa-tachometer-alt" style="color:white"></i>
                             <p style="color:white;">Dashboard</p>
                         </a>
@@ -34,6 +34,9 @@
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{route('ManageReturns')}}">Manage Returns</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{route('VehicleReservation')}}">Vehicle Reservation</a>
                                 </li>
                             </ul>
                         </div>
@@ -99,7 +102,7 @@
                                     <a class="nav-link" href="{{route('Refunds')}}">Refunds</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{route('PaymentSettings')}}">Payment Settings</a>
+                                    <a class="nav-link" href="{{route('PayoutRequest')}}">Payout Request</a>
                                 </li>
                             </ul>
                         </div>
