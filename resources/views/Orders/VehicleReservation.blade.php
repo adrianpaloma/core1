@@ -171,10 +171,57 @@
 
         @include('home.footer')
     </div>
+     <!-- Confirmation Modal -->
+     <div class="modal fade" id="confirmReservationModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Confirm Reservation</h5>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <p><strong>Order ID:</strong> <span id="confirmOrderId"></span></p>
+                    <p><strong>Name:</strong> <span id="confirmCustomerName"></span></p>
+                    <p>Are you sure you want to reserve this vehicle?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary" id="confirmSubmit">Confirm</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
 
     <script src="home/assets/vendor/jquery/jquery-3.3.1.min.js"></script>
     <script src="home/assets/vendor/bootstrap/js/bootstrap.bundle.js"></script>
     <script src="home/assets/vendor/slimscroll/jquery.slimscroll.js"></script>
     <script src="home/assets/libs/js/main-js.js"></script>
+    <script>
+        document.querySelector("form").addEventListener("submit", function(event) {
+            event.preventDefault(); // Prevent form submission
+    
+            // Get input values
+            let orderId = document.getElementById("orderId").value;
+            let customerName = document.getElementById("customerName").value;
+            let vehicleType = document.getElementById("vehicleType").value;
+            let reservationDate = document.getElementById("reservationDate").value;
+            let reservationTime = document.getElementById("reservationTime").value;
+    
+            // Check if all fields are filled
+            if (!orderId || !customerName || !vehicleType || !reservationDate || !reservationTime) {
+                alert("Please fill in all required fields before reserving.");
+                return;
+            }
+    
+            // Show confirmation alert
+            let confirmation = confirm(`Confirm Vehicle Reservation?\n\nOrder ID: ${orderId}\nCustomer: ${customerName}\nVehicle: ${vehicleType}\nDate: ${reservationDate}\nTime: ${reservationTime}`);
+            
+            if (confirmation) {
+                this.submit(); // Submit form if confirmed
+            }
+        });
+    </script>
+    
 </body>
 </html>

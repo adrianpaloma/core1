@@ -38,6 +38,19 @@
         .btn-primary:hover {
             background: linear-gradient(135deg, #9e5d3b, #6e4b3d);
         }
+        .btn-custom {
+            background: linear-gradient(135deg, #6e4b3d, #9e5d3b);
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            font-size: 1.1rem;
+            border-radius: 30px;
+            transition: background 0.3s ease-in-out;
+        }
+
+        .btn-custom:hover {
+            background: linear-gradient(135deg, #9e5d3b, #6e4b3d);
+        }
     </style>
 </head>
 <body>
@@ -52,7 +65,7 @@
                             <div class="card">
                                 <div class="card-header">Payout Request</div>
                                 <div class="card-body">
-                                    <form>
+                                    <form id="payoutForm">
                                         <div class="mb-3">
                                             <label for="payoutAmount" class="form-label">Payout Amount</label>
                                             <input type="number" class="form-control" id="payoutAmount" placeholder="Enter amount" required>
@@ -72,18 +85,59 @@
                                         </div>
                                         <button type="submit" class="btn btn-primary">Submit Request</button>
                                     </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        @include('home.footer')
-    </div>
-    <script src="home/assets/vendor/jquery/jquery-3.3.1.min.js"></script>
-    <script src="home/assets/vendor/bootstrap/js/bootstrap.bundle.js"></script>
-    <script src="home/assets/vendor/slimscroll/jquery.slimscroll.js"></script>
-    <script src="home/assets/libs/js/main-js.js"></script>
+                                    
+                                    <!-- Confirmation Modal (Place before closing </body>) -->
+                                    <div class="modal fade" id="confirmPayoutModal" tabindex="-1" role="dialog" aria-labelledby="confirmPayoutModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="confirmPayoutModalLabel">Confirm Payout Request</h5>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <p><strong>Payout Amount:</strong> <span id="confirmAmount"></span></p>
+                                                    <p><strong>Payment Method:</strong> <span id="confirmMethod"></span></p>
+                                                    <p><strong>Account Details:</strong> <span id="confirmDetails"></span></p>
+                                                    <p>Are you sure you want to submit this payout request?</p>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-custom" data-dismiss="modal">Cancel</button>
+                                                    <button type="button" class="btn btn-custom" id="confirmSubmit">Confirm</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Scripts (Place before closing </body>) -->
+                                    <script src="home/assets/vendor/jquery/jquery-3.3.1.min.js"></script>
+                                    <script src="home/assets/vendor/bootstrap/js/bootstrap.bundle.js"></script>
+                                    <script>
+                                        $(document).ready(function () {
+                                            $("#payoutForm").submit(function (event) {
+                                                event.preventDefault(); // Prevent form submission
+                                    
+                                                // Get form values
+                                                let amount = $("#payoutAmount").val();
+                                                let method = $("#paymentMethod").val();
+                                                let details = $("#accountDetails").val();
+                                    
+                                                // Display values in the modal
+                                                $("#confirmAmount").text("₱" + amount);
+                                                $("#confirmMethod").text(method);
+                                                $("#confirmDetails").text(details);
+                                    
+                                                // Show confirmation modal
+                                                $("#confirmPayoutModal").modal("show");
+                                            });
+                                    
+                                            // If confirmed, submit the form
+                                            $("#confirmSubmit").click(function () {
+                                                $("#payoutForm")[0].submit();
+                                            });
+                                        });
+                                    </script>
+                                    
 </body>
 </html>
